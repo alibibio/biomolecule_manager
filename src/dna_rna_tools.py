@@ -8,7 +8,9 @@ def reverse(seqs):
     return reversed_seqs
 
 
-def complement(seqs, complement_nucleotides={'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C', 'a': 't', 't': 'a', 'c': 'g', 'g': 'c'}):
+def complement(seqs, complement_nucleotides=None):
+    if complement_nucleotides is None:
+        complement_nucleotides = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C', 'a': 't', 't': 'a', 'c': 'g', 'g': 'c'}
     complement_seqs = []
     if is_RNA(seqs) == 1:
         print('Please, check that you entered DNA sequence')
@@ -61,7 +63,9 @@ def reverse_complement(seqs):
         return reverse(complement_list)
 
 
-def is_nucleic_acid(seqs, alphabet={'A', 'T', 'G', 'C', 'U'}):
+def is_nucleic_acid(seqs, alphabet=None):
+    if alphabet is None:
+        alphabet = {'A', 'T', 'G', 'C', 'U'}
     false_amount = 0
     for seq in seqs:
         seq = seq.upper()
