@@ -1,3 +1,5 @@
+import os
+
 def is_suitable_r_quality(seq_quality: str, quality_thresold: int) -> bool:
     """
     Checks if mean quality of sequence is suitable for specified quality
@@ -54,7 +56,7 @@ def is_suitable_lenght(seqs_seq: str, length_bound_min: int, length_bound_max: i
         return False
 
 
-def fastq_tools(seqs: dict, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), quality_thresold=0) -> set:
+def fastq_tools(seqs, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), quality_thresold=0) -> set:
     """
     Filters the sequences suitable for given bounds
     Arguments:
@@ -65,6 +67,7 @@ def fastq_tools(seqs: dict, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), qual
     Return:
         filtered_seqs - set of suitable sequences {'name of read': ('nucleic acid sequence', 'corresponding quality of read')}
     """
+
     if type(gc_bounds) == int:
         gc_bound_max = gc_bounds
         gc_bound_min = 0
@@ -100,3 +103,35 @@ def fastq_tools(seqs: dict, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), qual
             filtered_seqs[f_count] = seqs[f_count]
 
     return filtered_seqs
+
+
+def read_fastq(input_filename : str) -> dict:
+    counter = 3
+    samples = []
+    with open(input_filename) as fastq_file:
+        sample = []
+
+        for line in fastq_file:
+            if not line.startswith('+'):
+                sample.append(line.strip())
+            if len(sample) == counter:
+                samples.append(sample)
+                sample = []
+
+    fastq_dict = {}
+    for sample in samples:
+        fastq_dict[sample[0].split()[0]] = tuple(sample[1:])
+
+    return fastq_dict
+
+
+def write_fastq(fastq_output_dict: dict, output_filename='example_output.fastq', output_folder='fastq_filtrator_resuls'):
+    if not os.path.exists(output_folder):
+        os.makedirs('fastq_filtrator_resuls')
+
+    with open(os.path.join(output_folder, output_filename), mode='w') as fastq_file:
+        for sample in fastq_output_dict:
+            fastq_file.write(sample + '\n')
+            fastq_file.write(fastq_output_dict[sample][0] + '\n')
+            fastq_file.write('+' + sample + '\n')
+            fastq_file.write(fastq_output_dict[sample][1] + '\n')
