@@ -11,7 +11,7 @@ def is_suitable_r_quality(seq_quality: str, quality_thresold: int) -> bool:
 
     qual_summ = 0
     for nucltd_q in seq_quality:
-        qual_summ += ord(nucltd_q)
+        qual_summ += ord(nucltd_q) - 33
     mean_qual = qual_summ / (len(seq_quality))
     if mean_qual > quality_thresold:
         return True
@@ -54,7 +54,7 @@ def is_suitable_lenght(seqs_seq: str, length_bound_min: int, length_bound_max: i
         return False
 
 
-def fastq_tools(seqs: set, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), quality_thresold=0) -> set:
+def fastq_tools(seqs: dict, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), quality_thresold=0) -> set:
     """
     Filters the sequences suitable for given bounds
     Arguments:

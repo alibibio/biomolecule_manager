@@ -8,7 +8,7 @@ MOLECULAR_MASS = {'A': 89.094, 'R': 174.203, 'N': 132.119, 'D': 133.104, 'C': 12
                   'L': 131.175, 'K': 146.189, 'M': 149.208, 'F': 165.192, 'P': 115.132,
                   'S': 105.093, 'T': 119.119, 'W': 204.228, 'Y': 181.191, 'V': 117.148}
 
-aas = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y'}
+AAS = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y'}
 
 
 def is_prot(prot: str) -> bool:
@@ -22,7 +22,7 @@ def is_prot(prot: str) -> bool:
     """
 
     uniq_aas = set(prot.upper())
-    aa_test = (uniq_aas <= aas)
+    aa_test = (uniq_aas <= AAS)
     if aa_test == 0:
         raise ValueError('Please  check proteins sequences')
     return True
