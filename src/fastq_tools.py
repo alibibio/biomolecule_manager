@@ -106,6 +106,13 @@ def fastq_tools(seqs, gc_bounds=(0, 101), length_bounds=(0, 2 ** 32), quality_th
 
 
 def read_fastq(input_filename : str) -> dict:
+    """
+    Makes dictionary of fastq strings values
+    Args:
+        input_filename (str): the name of fastq file with extension .fastq
+    Returns:
+        dictionary of fastq values in format: {name: (sequence, quality)}
+    """
     counter = 3
     samples = []
     with open(input_filename) as fastq_file:
@@ -126,6 +133,16 @@ def read_fastq(input_filename : str) -> dict:
 
 
 def write_fastq(fastq_output_dict: dict, output_filename='example_output.fastq', output_folder='fastq_filtrator_resuls'):
+    """
+    Args:
+        fastq_output_dict(dict): dictionary of fastq values in format: {name: (sequence, quality)}
+        output_filename(str): name of output file. Default value 'example_output.fastq'
+        output_folder(str): name of folder with results. Default value 'fastq_filtrator_resuls'
+
+    Returns:
+        Creates if it necessary new folder with file .fastq with given reads
+    """
+
     if not os.path.exists(output_folder):
         os.makedirs('fastq_filtrator_resuls')
 
