@@ -33,9 +33,6 @@ class BiologicalSequence:
                 return False
         return True
 
-bm = BiologicalSequence('AAATTTGGGCCC')
-print(bm.ALPHABET)
-
 
 class NucleicAcidSequence(BiologicalSequence):
     def complement(self, COMPLEMENT_NUCLEOTIDES=None):
@@ -49,10 +46,6 @@ class NucleicAcidSequence(BiologicalSequence):
 
     def gc_content(self):
         return (self.sequence.count('G') + self.sequence.count('C'))/len(self.sequence)
-
-
-na = NucleicAcidSequence('AAATTTGGGCCC')
-print(na.ALPHABET)
 
 
 class RNASequence(NucleicAcidSequence):
